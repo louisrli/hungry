@@ -32,15 +32,17 @@ tomorrow = extractDateInfo(new Date(new Date().getTime() + MS_PER_DAY), "tomorro
 getEndpoint = (date, meal) ->
   "http://food.cs50.net/api/1.3/menus?meal=#{meal}&sdt=#{date}&output=jsonp&callback=?"
 
-today =
-  date: "2013-05-02"
-  day: "wednesday"
-  type: "today"
+debug = false
+if debug
+  today =
+    date: "2013-05-02"
+    day: "wednesday"
+    type: "today"
 
-tomorrow =
-  date: "2013-05-03"  # TODO debug
-  day: "thursday"
-  type: "tomorrow"
+  tomorrow =
+    date: "2013-05-03"
+    day: "thursday"
+    type: "tomorrow"
 
 createMeal = (dateInfo, meal) ->
   o = _.extend({ meal: meal }, dateInfo)
