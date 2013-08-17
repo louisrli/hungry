@@ -7,45 +7,51 @@
 # but since we can assume most people are on Harvard internet
 # and have enough bandwidth to download another 1KB of data,
 # it shouldn't have a huge impact :)
-formatDate = (dateObject) ->
-  dd = dateObject.getDate()
-  mm = dateObject.getMonth() + 1
-  yyyy = dateObject.getFullYear()
+Date::getDayName = ->
+  ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][this.getDay()]
+
+Date::formatDate = ->
+  dd = this.getDate()
+  mm = this.getMonth() + 1
+  yyyy = this.getFullYear()
   
   dd = '0' + dd if dd < 10
   mm = '0' + mm if mm < 10
   return "#{yyyy}-#{mm}-#{dd}"
 
-today = formatDate(new Date())
+extractDateInfo = (date, name) ->
+  date: date.formatDate()
+  day: date.getDayName()
+  type: name
+
+today = extractDateInfo(new Date(), "today")
 
 MS_PER_DAY = 24 * 60 * 60 * 1000
-tomorrow = formatDate(new Date(new Date().getTime() + MS_PER_DAY))
+tomorrow = extractDateInfo(new Date(new Date().getTime() + MS_PER_DAY), "tomorrow")
 
-# Make the API calls
 getEndpoint = (date, meal) ->
   "http://food.cs50.net/api/1.3/menus?meal=#{meal}&sdt=#{date}&output=jsonp&callback=?"
 
-today = "2013-05-02"
-tomorrow = "2013-05-03"  # TODO debug
+today =
+  date: "2013-05-02"
+  day: "wednesday"
+  type: "today"
+
+tomorrow =
+  date: "2013-05-03"  # TODO debug
+  day: "thursday"
+  type: "tomorrow"
+
+createMeal = (dateInfo, meal) ->
+  o = _.extend({ meal: meal }, dateInfo)
+  o.url = getEndpoint(dateInfo.date, meal)
+  return o
 
 MEALS = [
-  { date: today, meal: "lunch" },
-  { date: today, meal: "dinner" },
-  { date: tomorrow, meal: "lunch" }
+  createMeal(today, "lunch")
+  createMeal(today, "dinner")
+  createMeal(tomorrow, "lunch")
 ]
-
-_.each(MEALS, (o) ->
-  o.url = getEndpoint(o.date, o.meal)
-  if o.date is today then o.type = "today"
-  if o.date is tomorrow then o.type = "tomorrow"
-
-)
-
-# Load the data from the API into the models
-createEntreeList = (obj) ->
-  o = _.extend({}, obj)  # clone for safety
-  o.entrees = _.map(o.entrees, (e) -> new Entree(e)) 
-  model = new EntreeList(o)
 
 #
 # Models
@@ -56,6 +62,12 @@ class EntreeList extends Backbone.Model
 
 class Menu extends Backbone.Collection
   model: EntreeList
+  
+  createEntreeList: (obj) ->
+    o = _.extend({}, obj)  # clone for safety
+    o.entrees = _.map(o.entrees, (e) -> new Entree(e))
+    model = new EntreeList(o)
+
 
   fetch: (options) ->
     collection = @
@@ -93,7 +105,7 @@ class Menu extends Backbone.Collection
           meals[i] = _.extend(meals[i], MEALS[i])
 
         collection.reset(
-          _.map(meals, (entreeList) -> createEntreeList(entreeList))
+          _.map(meals, (entreeList) -> collection.createEntreeList(entreeList))
         )
       ),
       ((error) ->
