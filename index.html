@@ -1,90 +1,99 @@
 <!DOCTYPE html>
-<head>
-  <title>Harvard Dining Menu | Hungry</title>
-  <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
-  <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
-  <link href="stylesheets/hungry.css" rel="stylesheet">
+<html>
+  <head>
+    <title>Harvard Dining Menu | Hungry</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheets/hungry.css" rel="stylesheet">
 
-  <meta property="og:title" content="Harvard Dining Menu | Hungry" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="http://www.hcs.harvard.edu/~louis/imhungry/" />
-  <meta property="og:image" content="http://www.hcs.harvard.edu/~louis/imhungry/img/logo.jpg" />
-  <meta property="og:site_name" content="Harvard Dining Menu | Hungry" />
-  <meta property="fb:admins" content="100001696373537" />
-</head>
+    <meta property="og:title" content="Harvard Dining Menu | Hungry" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.hcs.harvard.edu/~louis/imhungry/" />
+    <meta property="og:image" content="http://www.hcs.harvard.edu/~louis/imhungry/img/logo.jpg" />
+    <meta property="og:site_name" content="Harvard Dining Menu | Hungry" />
+    <meta property="fb:admins" content="100001696373537" />
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-<body>
-  <a href="https://github.com/louisrli/hungrier"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+          ga('create', 'UA-32823730-3', 'louisrli.github.io');
+          ga('send', 'pageview');
+    </script>
+  </head>
 
-  <div class="container pagination-centered">
-    <div class="row">
-      <div class="span12">
-        <div class="menu-container">
-          <div class="page-header">
-            <h1>hungry</h1>
+  <body>
+    <a href="https://github.com/louisrli/hungrier"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+
+    <div class="container pagination-centered">
+      <div class="row">
+        <div class="span12">
+          <div class="menu-container">
+            <div class="page-header">
+              <h1>hungry</h1>
+            </div>
+            <div id="food-menu">
+              <div class="loading">Loading...</div>
+
+              <div class="spinner"></div>
+            </div>
           </div>
-          <div id="food-menu">
-            <div class="loading">Loading...</div>
+        </div>
+      </div>
 
-            <div class="spinner"></div>
+      <div id="footer-region">
+      </div>
+    </div>
+
+    <!-- Marionette templates -->
+    <script id="meal-menu" type="text/html">
+      <h1><%- meal %> <%- type %> - <%- day %></h1>
+      <ul>
+      </ul>
+    </script>
+
+    <script id="entree-item" type="text/html">
+      <%- name %>
+    </script>
+
+    <script id="empty-menu" type="text/html">
+      It seems like either the dining halls are closed, or there's currently an issue getting information from the dining halls. Check back another time!
+    </script>
+
+    <script id="footer" type="text/html">
+      <div class="row">
+        <div class="facebook-like">
+          <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.hcs.harvard.edu%2F%7Elouis%2Fimhungry%2F&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35&amp;appId=387983267891183" scrolling="no" frameborder="0" style="border:none; overflow:hide; width:450px; height:35px;" allowTransparency="true"></iframe>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="subscription-container span12">
+          <div class="">
+            receive an email with the menu every morning (<a href="#" id="subscription-toggle">what is this?</a>)
+          </div>
+
+          <div class="margin">
+            <form class="form-horizontal" action="https://lists.hcs.harvard.edu/mailman/subscribe/hungry" method="post"> 
+              <input class="input-xlarge" placeholder="Your email" type="text" name="email">
+              <input class="btn btn-primary" type="submit" value="Subscribe">
+            </form>
+          </div>
+
+
+          <div class="hide" id="subscription-info">
+            This subscribes you to a Harvard mailing list, <a href="https://lists.hcs.harvard.edu/mailman/listinfo/hungry">Hungry</a>, which is just like any other mailing list on campus. <br>Each morning at 5 AM (except on breaks), you'll receive an email with the menu from this page. <b>You can unsubscribe at any time.</b>
           </div>
         </div>
       </div>
-    </div>
 
-    <div id="footer-region">
-    </div>
-  </div>
-
-  <!-- Marionette templates -->
-  <script id="meal-menu" type="text/html">
-    <h1><%- meal %> <%- type %> - <%- day %></h1>
-    <ul>
-    </ul>
-  </script>
-
-  <script id="entree-item" type="text/html">
-    <%- name %>
-  </script>
-
-  <script id="empty-menu" type="text/html">
-    It seems like either the dining halls are closed, or there's currently an issue getting information from the dining halls. Check back another time!
-  </script>
-
-  <script id="footer" type="text/html">
-    <div class="row">
-      <div class="facebook-like">
-        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.hcs.harvard.edu%2F%7Elouis%2Fimhungry%2F&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35&amp;appId=387983267891183" scrolling="no" frameborder="0" style="border:none; overflow:hide; width:450px; height:35px;" allowTransparency="true"></iframe>
+      <div class="feedback margin">
+        <small><a href="mailto:louisli@college.harvard.edu">feedback & bugs</a></small>
       </div>
-    </div>
+    </script>
 
-    <div class="row">
-      <div class="subscription-container span12">
-        <div class="">
-          receive an email with the menu every morning (<a href="#" id="subscription-toggle">what is this?</a>)
-        </div>
-
-        <div class="margin">
-          <form class="form-horizontal" action="https://lists.hcs.harvard.edu/mailman/subscribe/hungry" method="post"> 
-            <input class="input-xlarge" placeholder="Your email" type="text" name="email">
-            <input class="btn btn-primary" type="submit" value="Subscribe">
-          </form>
-        </div>
-
-
-        <div class="hide" id="subscription-info">
-          This subscribes you to a Harvard mailing list, <a href="https://lists.hcs.harvard.edu/mailman/listinfo/hungry">Hungry</a>, which is just like any other mailing list on campus. <br>Each morning at 5 AM (except on breaks), you'll receive an email with the menu from this page. <b>You can unsubscribe at any time.</b>
-        </div>
-      </div>
-    </div>
-
-    <div class="feedback margin">
-      <small><a href="mailto:louisli@college.harvard.edu">feedback & bugs</a></small>
-    </div>
-  </script>
-
-  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-  <script type="text/javascript" src="application.min.js"></script>
-</body>
-
-
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="application.min.js"></script>
+  </body>
+</html>
