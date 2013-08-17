@@ -2,4 +2,3 @@
 node_modules/
 *.swp
 scripts/build/
-application.min.js
