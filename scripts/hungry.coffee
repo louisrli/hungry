@@ -137,14 +137,11 @@ class EntreeListCompositeView extends Marionette.CompositeView
 class EmptyMenuView extends Marionette.ItemView
   tagName: "div"
   template: "#empty-menu"
-  initialize: -> console.log "empty"
 
 class MenuView extends Marionette.CollectionView
   itemView: EntreeListCompositeView
   itemViewContainer: "div"
   emptyView: EmptyMenuView
-  initialize: ->
-    console.log @model
 
 class FooterView extends Marionette.ItemView
   template: "#footer"
