@@ -1,6 +1,7 @@
 body {
     /* ohhhh yeah */
-    text-transform: uppercase;
+    text-transform: lowercase;
+    font-weight: 300;
 }
 
 .container {
@@ -9,7 +10,7 @@ body {
 }
 
 .facebook-like {
-    margin-bottom: 20px;
+    margin: 20px auto;
 }
 
 .loading {
@@ -19,10 +20,21 @@ body {
 
 .meal-menu ul {
     list-style: none;
+    font-weight: 300;
+    margin-bottom: 30px;
 }
 
+.meal-menu h1 {
+    margin: 0;
+}
 .meal-menu li {
+    font-size: 40px;
+    line-height: 50px;
     list-style: none;
+}
+
+h1 {
+    font-weight: 100;
 }
 
 /* css spinner, 

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <head>
   <title>Harvard Dining Menu | Hungry</title>
-  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
+  <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
   <link href="stylesheets/hungry.css" rel="stylesheet">
 
-  <meta property="og:title" content="Harvard Dining Menu
-  | Hungry" />
+  <meta property="og:title" content="Harvard Dining Menu | Hungry" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="http://www.hcs.harvard.edu/~louis/imhungry/" />
   <meta property="og:image" content="http://www.hcs.harvard.edu/~louis/imhungry/img/logo.jpg" />
@@ -17,18 +17,26 @@
   <a href="https://github.com/louisrli/hungrier"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
   <div class="container pagination-centered">
-    <div class="facebook-like">
-      <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.hcs.harvard.edu%2F%7Elouis%2Fimhungry%2F&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35&amp;appId=387983267891183" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe>
+    <div class="row">
+      <div class="span12">
+        <div class="page-header">
+          <h1>hungry</h1>
+        </div>
+        <div id="food-menu">
+          <div class="loading">Loading...</div>
+
+          <div class="spinner"></div>
+        </div>
+      </div>
     </div>
 
-    <div class="page-header">
-      <h1>HUNGRY</h1>
+    <div class="row">
+      <div class="span12 facebook-like">
+        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.hcs.harvard.edu%2F%7Elouis%2Fimhungry%2F&amp;send=false&amp;layout=standard&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35&amp;appId=387983267891183" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe>
+      </div>
     </div>
-    <div id="food-menu">
-      <div class="loading">Loading...</div>
 
-      <div class="spinner"></div>
-    </div>
+
   </div>
 
   <!-- Marionette templates -->
