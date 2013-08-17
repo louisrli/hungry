@@ -59,7 +59,8 @@ h1 {
 
 .facebook-like {
     text-align: center;
-    margin-left: 100px;  /* center the iframe */
+    width: 350px;
+    margin: 0px auto;
 }
 
 .meal-menu ul {
