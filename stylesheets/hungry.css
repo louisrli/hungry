@@ -1,3 +1,17 @@
+body {
+    /* ohhhh yeah */
+    text-transform: uppercase;
+}
+
+.container {
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.facebook-like {
+    margin-bottom: 20px;
+}
+
 .loading {
     margin: 50px;
     font-size: x-large;
