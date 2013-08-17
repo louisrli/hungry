@@ -76,7 +76,7 @@ class Menu extends Backbone.Collection
     promises = _.map(MEALS, (o) -> $.getJSON(o.url))
     # Things get ugly here in order to run the AJAX
     # calls in parallel
-    $.when.apply($, promises).then(
+    return $.when.apply($, promises).then(
       ((data) ->
         # The only way to get each response from the AJAX
         # is to use `arguments`
@@ -98,7 +98,6 @@ class Menu extends Backbone.Collection
                 i.category.indexOf("ENTREE") != -1 or i.category is "BRUNCH")
               .value()
 
-          mealObject.meal = mealObject.entrees[0].meal  # TODO
           mealObject
         )
 
@@ -138,6 +137,7 @@ class EntreeListCompositeView extends Marionette.CompositeView
 # i.e. CS50 Food API is down
 class EmptyMenuView extends Marionette.ItemView
   tagName: "div"
+  className: "empty-message"
   template: "#empty-menu"
 
 class MenuView extends Marionette.CollectionView
@@ -182,13 +182,15 @@ App.footerRegion.open = regionFadein
 
 App.addInitializer((options) ->
   HungryMenu = new Menu()
-  HungryMenu.fetch()
-
-  HungryMenu.on("reset", ->
+  HungryMenu.fetch().then(->
     menuView = new MenuView(
-      collection: @
+      collection: HungryMenu
     )
-    App.mainRegion.show(menuView)
+
+    if HungryMenu.every((meal) -> meal.get("entrees").length is 0)
+      App.mainRegion.show(new EmptyMenuView())
+    else
+      App.mainRegion.show(menuView)
   )
 
   App.footerRegion.show(new FooterView())
