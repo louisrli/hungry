@@ -80,7 +80,8 @@ class Menu extends Backbone.Collection
                 .pick(['meal', 'date', 'name', 'category'])
                 .value()
             )
-              .filter((i) -> i.category in ["ENTREES"])
+              .filter((i) -> 
+                i.category.indexOf("ENTREE") != -1 or i.category is "BRUNCH")
               .value()
 
           mealObject.meal = mealObject.entrees[0].meal  # TODO
@@ -133,17 +134,40 @@ class MenuView extends Marionette.CollectionView
   initialize: ->
     console.log @model
 
+class FooterView extends Marionette.ItemView
+  template: "#footer"
+  className: "footer"
+  events:
+    "click #subscription-toggle": (e) ->
+      e.preventDefault()
+      @$("#subscription-info").animate(height: "toggle", opacity: "toggle")
+
+  onRender: ->
+    FADE_OPACITY = 0.4
+    @$el.fadeTo(300, FADE_OPACITY)
+
+    @$el.hover(
+      (-> $(this).fadeTo(300, 1.0)),
+      (-> $(this).fadeTo(300, FADE_OPACITY))
+    )
+
 
 #
 # Application
 #
 App = new Marionette.Application()
-App.addRegions(mainRegion: "#food-menu")
+App.addRegions(
+  mainRegion: "#food-menu"
+  footerRegion: "#footer-region"
+)
 
-App.mainRegion.open = (view) ->
+regionFadein = (view) ->
   @$el.hide()
   @$el.html(view.el)
   @$el.fadeIn(800)
+
+App.mainRegion.open = regionFadein
+App.footerRegion.open = regionFadein
 
 App.addInitializer((options) ->
   HungryMenu = new Menu()
@@ -155,6 +179,8 @@ App.addInitializer((options) ->
     )
     App.mainRegion.show(menuView)
   )
+
+  App.footerRegion.show(new FooterView())
 )
 
 App.start()

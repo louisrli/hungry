@@ -1,21 +1,60 @@
 body {
-    /* ohhhh yeah */
-    text-transform: lowercase;
+    text-transform: lowercase;  /* so risky ~~ */
+    font-weight: 300;
+}
+
+/* Helper -- note that bootstrap has a .hidden for visibility: none */
+.hide {
+    display: none;
+}
+
+/* Helper -- sensible default */
+.margin {
+    margin: 15px;
+}
+
+.padding {
+    padding: 15px;
+}
+
+h1 {
+    font-weight: 100;
+}
+
+::-webkit-input-placeholder {
+    font-weight: 300;
+}
+
+::-moz-placeholder {
+    font-weight: 300;
+}
+
+.btn {
     font-weight: 300;
 }
 
 .container {
-    margin-top: 50px;
     margin-bottom: 20px;
+    position: relative;
 }
 
-.facebook-like {
-    margin: 20px auto;
+.menu-container {
+    min-height: 250px;
 }
 
 .loading {
+    color: lightgray;
     margin: 50px;
     font-size: x-large;
+}
+
+.footer {
+    padding-bottom: 30px;
+}
+
+.facebook-like {
+    text-align: center;
+    margin-left: 100px;  /* center the iframe */
 }
 
 .meal-menu ul {
@@ -27,14 +66,11 @@ body {
 .meal-menu h1 {
     margin: 0;
 }
+
 .meal-menu li {
     font-size: 40px;
     line-height: 50px;
     list-style: none;
-}
-
-h1 {
-    font-weight: 100;
 }
 
 /* css spinner, 
