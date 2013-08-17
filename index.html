@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+  <title></title>
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  <link href="stylesheets/hungry.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container pagination-centered">
+    <div class="page-header">
+      <h1>HUNGRY</h1>
+    </div>
+    <div id="food-menu">
+      Loading...
+    </div>
+  </div>
+
+  <script id="meal-menu" type="text/html">
+    <h1><%- meal %> <%- type %></h1>
+    <ul>
+    </ul>
+  </script>
+
+  <script id="entree-item" type="text/html">
+    <%- name %>
+  </script>
+
+  <script id="empty-menu" type="text/html">
+    It seems like either the dining halls are closed, or there's currently an issue getting information from the dining halls. Check back another time!
+  </script>
+
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script type="text/javascript" src="scripts/lib/underscore-min.js"></script>
+  <script type="text/javascript" src="scripts/lib/backbone-min.js"></script>
+  <script type="text/javascript" src="scripts/lib/backbone.marionette.min.js"></script>
+  <script type="text/javascript" src="scripts/hungry.js"></script>
+</body>
+
+
