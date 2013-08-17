@@ -48,6 +48,11 @@ h1 {
     font-size: x-large;
 }
 
+.empty-message {
+    width: 50%;
+    margin: 0px auto;
+}
+
 .footer {
     padding-bottom: 30px;
 }

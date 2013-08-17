@@ -9,7 +9,7 @@ if [[ ! -z $(git diff) ]]; then
     git commit -am "[RELEASE] Updated application.min.js"
     git push origin gh-pages
 else
-    echo "No diff"
+    echo "===== No diff ====="
 fi
 
 git checkout -
