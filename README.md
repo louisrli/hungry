@@ -1,4 +1,4 @@
-Hungry
+[Hungry](http://louisrli.github.io/hungry/)
 ======
 
 Concisely displays the relevant items on the Harvard dining menu.
