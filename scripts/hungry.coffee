@@ -49,10 +49,25 @@ createMeal = (dateInfo, meal) ->
   o.url = getEndpoint(dateInfo.date, meal)
   return o
 
+# Annoyingly, the food API has meal set to "brunch" for sundays
+brunchOrLunch = (day) ->
+  console.log day
+  if day.toLowerCase() is "sunday" then "brunch" else "lunch"
+
 MEALS = [
-  createMeal(today, "lunch")
+  createMeal(today, brunchOrLunch today.day)
   createMeal(today, "dinner")
-  createMeal(tomorrow, "lunch")
+  createMeal(tomorrow, brunchOrLunch tomorrow.day)
+]
+
+# The API always returns a ton of extraneous stuff for brunch.
+# Let's blacklist the things that appear every brunch in the true
+# spirit of Hungry.
+BRUNCH_BLACKLIST = [
+  "Grapefruit", "Cage-Free Egg Whites", "Shredded Hashbrowns",
+  "Zucchini Walnut Bread", "Stir Fry Vegetables", "Harvard Fruit Salad",
+  "Assorted Bagels", "Whole Wheat Blueberry Muffin", "Smoked Salmon Platter",
+  "Carrot, Walnut Cake with Cream Cheese Icing", "Scrambled Cage Free Eggs"
 ]
 
 #
@@ -95,7 +110,9 @@ class Menu extends Backbone.Collection
                 .value()
             )
               .filter((i) -> 
-                i.category.indexOf("ENTREE") != -1 or i.category is "BRUNCH")
+                console.log i.name
+                i.category.indexOf("ENTREE") != -1 or (i.category is "BRUNCH" and not (i.name in BRUNCH_BLACKLIST))
+              )
               .value()
 
           mealObject
