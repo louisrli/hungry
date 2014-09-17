@@ -51,7 +51,6 @@ createMeal = (dateInfo, meal) ->
 
 # Annoyingly, the food API has meal set to "brunch" for sundays
 brunchOrLunch = (day) ->
-  console.log day
   if day.toLowerCase() is "sunday" then "brunch" else "lunch"
 
 MEALS = [
@@ -198,13 +197,13 @@ App.mainRegion.open = regionFadein
 App.footerRegion.open = regionFadein
 
 App.addInitializer((options) ->
-  HungryMenu = new Menu()
-  HungryMenu.fetch().then(->
+  hungryMenu = new Menu()
+  hungryMenu.fetch().then(->
     menuView = new MenuView(
-      collection: HungryMenu
+      collection: hungryMenu
     )
 
-    if HungryMenu.every((meal) -> meal.get("entrees").length is 0)
+    if hungryMenu.every((meal) -> meal.get("entrees").length is 0)
       App.mainRegion.show(new EmptyMenuView())
     else
       App.mainRegion.show(menuView)
