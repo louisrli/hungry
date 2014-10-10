@@ -50,6 +50,7 @@ createMeal = (dateInfo, meal) ->
   return o
 
 # Annoyingly, the food API has meal set to "brunch" for sundays
+# In the 2014-2015 school year, for Saturday, the "meal" attribute is LUNCH, but the "category" is BRUNCH
 brunchOrLunch = (day) ->
   if day.toLowerCase() is "sunday" then "brunch" else "lunch"
 
@@ -66,7 +67,9 @@ BRUNCH_BLACKLIST = [
   "Grapefruit", "Cage-Free Egg Whites", "Shredded Hashbrowns",
   "Zucchini Walnut Bread", "Stir Fry Vegetables", "Harvard Fruit Salad",
   "Assorted Bagels", "Whole Wheat Blueberry Muffin", "Smoked Salmon Platter",
-  "Carrot, Walnut Cake with Cream Cheese Icing", "Scrambled Cage Free Eggs"
+  "Carrot, Walnut Cake with Cream Cheese Icing", "Scrambled Cage Free Eggs",
+  "Turkey Bacon", "Hard Cooked Eggs - Cage Free", "Cage Free Eggs Cooked to Order",
+  "Triple Berry Tea Bread", "Whole Wheat Banana Nut Muffin"
 ]
 
 #
@@ -109,8 +112,9 @@ class Menu extends Backbone.Collection
                 .value()
             )
               .filter((i) -> 
-                console.log i.name
-                i.category.indexOf("ENTREE") != -1 or (i.category is "BRUNCH" and not (i.name in BRUNCH_BLACKLIST))
+                # Take entree items, ignore entree salads and extraneous brunch items
+                (i.category.indexOf("ENTREE") != -1 and not (i.category is "ENTREE SALADS")) or
+                  (i.category is "BRUNCH" and not (i.name in BRUNCH_BLACKLIST))
               )
               .value()
 
