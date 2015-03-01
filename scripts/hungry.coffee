@@ -114,7 +114,7 @@ class Menu extends Backbone.Collection
                 # Take entree items, ignore entree salads and extraneous brunch items
                 (i.category.indexOf("ENTREE") != -1 and not (i.category is "ENTREE SALADS")) or
                   (i.category is "BRUNCH" and not (i.name in BRUNCH_BLACKLIST)) or
-                  (i.category is "TODAY'S SOUP")
+                  (i.category is "TODAY\\'S SOUP")
               )
               .value()
 
