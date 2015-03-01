@@ -2,11 +2,9 @@
 # 
 # Author: Louis Li
 
-# Download the API data from the client
-# Less speedy than caching on a server,
-# but since we can assume most people are on Harvard internet
-# and have enough bandwidth to download another 1KB of data,
-# it shouldn't have a huge impact :)
+# Download the API data from the client. Less speedy than caching on a server,
+# but since we can assume most people are on Harvard internet and have enough
+# bandwidth to download another 1KB of data, it shouldn't have a huge impact :)
 Date::getDayName = ->
   ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][this.getDay()]
 
@@ -29,8 +27,9 @@ today = extractDateInfo(new Date(), "today")
 MS_PER_DAY = 24 * 60 * 60 * 1000
 tomorrow = extractDateInfo(new Date(new Date().getTime() + MS_PER_DAY), "tomorrow")
 
+API_KEY = "a1ba99910ddd9ed75bc9a48a440b1906"
 getEndpoint = (date, meal) ->
-  "http://food.cs50.net/api/1.3/menus?meal=#{meal}&sdt=#{date}&output=jsonp&callback=?"
+  "http://api.cs50.net/food/3/menus?key=#{API_KEY}&meal=#{meal}&sdt=#{date}&output=jsonp&callback=?"
 
 debug = false
 if debug
