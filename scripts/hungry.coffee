@@ -168,10 +168,6 @@ class MenuView extends Marionette.CollectionView
 class FooterView extends Marionette.ItemView
   template: "#footer"
   className: "footer"
-  events:
-    "click #subscription-toggle": (e) ->
-      e.preventDefault()
-      @$("#subscription-info").animate(height: "toggle", opacity: "toggle")
 
   onRender: ->
     FADE_OPACITY = 0.4
